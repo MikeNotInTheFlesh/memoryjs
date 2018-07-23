@@ -39,6 +39,6 @@ function Button(x, y, w, h, id) {
   }
   
   this.action = function() {
-    newGame(3 + 2 * this.id);
+    newGame(8 + 2 * this.id);
   }
 }

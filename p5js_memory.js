@@ -248,8 +248,7 @@ function winner() {
   textAlign(CENTER, TOP);
   fill(255, 255, 255, 255);
   textSize(bigness / 2);
-  text("score: " + score + "\n\n(Esc to exit)"
-    , width / 2, height / 2);
+  text("score: " + score, width / 2, height / 2);
   //text("seconds: "+ str(timer / 30), width / 2, height / 2);
   textAlign(CENTER, CENTER);
   text("Start New Game", width / 2, height / 16);
