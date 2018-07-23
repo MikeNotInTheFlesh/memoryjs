@@ -175,11 +175,16 @@ function mousePressed() {
 		}
 	}
 	// If someone wants to play faster clicking the screen will let them
-	if (hideCardsTimer > 0 && hideCardsTimer < timerDelay - 6) {
-		hideCardsTimer = 1;
+	if (hideCardsTimer > 0) {
+		// added a buffer to timerDelay for touch screens touching too fast
+		if (hideCardsTimer < timerDelay - 6) {
+			hideCardsTimer = 1;
+		}
 		return;
 	} else if (correctGuessTimer > 0 && hideCardsTimer < timerDaley * 2 - 6) {
-		correctGuessTimer = 1;
+		if (correctGuessTimer < timerDelay * 2 - 6) {
+			correctGuessTimer = 1;
+		}
 		return;
 		// bug fix. Starting a new game would select the first card.
 	} else if (timer < 5) {
