@@ -11,9 +11,10 @@ var winFlag = false;
 var buttons = [];
 var font;
 var score = 0;
+var timerDelay = 15;
 
 function preload() {
-	// soundFormats('mp3', 'ogg');
+	// soundFormats('mp3');
 	correctPlay = loadSound('data/correctPlay.mp3');
 	levelComplete = loadSound('data/levelComplete.mp3');
 }
@@ -21,8 +22,8 @@ function preload() {
 function setup() {
 	
 	
-	correctPlay.setVolume(0.8);
-	levelComplete.setVolume(0.5);
+	correctPlay.setVolume(0.6);
+	levelComplete.setVolume(0.4);
 	
   // createCanvas(window.innerWidth * 0.95, window.innerHeight * 0.95);
   createCanvas(window.innerWidth * 1, window.innerHeight * 1);
@@ -118,7 +119,7 @@ function createBoard() {
   var maxX = 0;
   ids = [];
   
-  // make a list of ids and shuffle them to use as param for new Cards
+  // make a list of ids
   for (let i = 0; i < numCards * 2; i++) {
     if (i < numCards) {
       ids.push(i);
@@ -126,7 +127,7 @@ function createBoard() {
       ids.push(i - numCards);
     }
   }
-  // ADD A SHUFFLE FUNCTION HERE
+  // shuffle ids to use as param for new Cards
   ids = shuffle(ids);
   
   // Create Cards and put them in array: cards
@@ -173,12 +174,11 @@ function mousePressed() {
 			}
 		}
 	}
-	
-	if (hideCardsTimer > 0) {
-		// If someone wants to play faster clicking the screen will let them
+	// If someone wants to play faster clicking the screen will let them
+	if (hideCardsTimer > 0 && hideCardsTimer < timerDelay - 6) {
 		hideCardsTimer = 1;
 		return;
-	} else if (correctGuessTimer > 0) {
+	} else if (correctGuessTimer > 0 && hideCardsTimer < timerDaley * 2 - 6) {
 		correctGuessTimer = 1;
 		return;
 		// bug fix. Starting a new game would select the first card.
@@ -205,14 +205,14 @@ function checkGuess(id){
     firstGuessId = id;
   } else if (firstGuessId == id) {
     // do stuff for correct answer
-    correctGuessTimer = 15;
+    correctGuessTimer = timerDelay;
     score += numCards * 5;
     //correctPlay.amp(0.8);
     //correctPlay.play();
   } else{
     // do stuff for incorrect answer
     firstGuessId = -1;
-    hideCardsTimer = 30;
+    hideCardsTimer = timerDelay * 2;
     score -= numCards * 1;
   }
 }
@@ -252,7 +252,6 @@ function winner() {
   //text("seconds: "+ str(timer / 30), width / 2, height / 2);
   textAlign(CENTER, CENTER);
   text("Start New Game", width / 2, height / 16);
-
   pop();
 }
 
