@@ -79,6 +79,14 @@ function draw() {
   tableCloth.resize(width, height);
   background(tableCloth);
   
+  if (localStorage.getItem("highScore" + numCards)){
+	  push();
+	  textAlign(LEFT, TOP);
+	  textSize(min(width, height) / 30);
+	  text("High score: " + localStorage.getItem("highScore" + numCards), 5, 5);
+	  pop();
+  }
+  
   if (! winFlag) {
     timer += 1;
   }
@@ -181,7 +189,7 @@ function mousePressed() {
 			hideCardsTimer = 1;
 		}
 		return;
-	} else if (correctGuessTimer > 0 && hideCardsTimer < timerDaley * 2 - 6) {
+	} else if (correctGuessTimer > 0 && hideCardsTimer < timerDelay * 2 - 6) {
 		if (correctGuessTimer < timerDelay * 2 - 6) {
 			correctGuessTimer = 1;
 		}
@@ -258,6 +266,9 @@ function winner() {
   textAlign(CENTER, CENTER);
   text("Start New Game", width / 2, height / 16);
   pop();
+  if (! localStorage.getItem("highScore" + numCards)  || localStorage.getItem("highScore" + numCards) < score) {
+	  localStorage.setItem("highScore" + numCards, score);
+  }
 }
 
 function newGame(tempNumCards) {
