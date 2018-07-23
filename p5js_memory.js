@@ -265,10 +265,20 @@ function winner() {
   //text("seconds: "+ str(timer / 30), width / 2, height / 2);
   textAlign(CENTER, CENTER);
   text("Start New Game", width / 2, height / 16);
-  pop();
   if (! localStorage.getItem("highScore" + numCards)  || localStorage.getItem("highScore" + numCards) < score) {
 	  localStorage.setItem("highScore" + numCards, score);
   }
+  if (localStorage.getItem("highScore" + numCards) == score) {
+	  // stroke('yellow');
+	  // strokeWeight(bigness / 20);
+	  textAlign(CENTER, BOTTOM);
+	  textSize(bigness);
+	  fill('yellow');
+	  text("HIGH SCORE!!!", width / 2, height - height / 20);
+	  fill('white');
+	  text("HIGH SCORE!!!", width / 2 + width / 200, height - height / 20 + height / 200);
+  }
+  pop();
 }
 
 function newGame(tempNumCards) {
