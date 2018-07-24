@@ -42,3 +42,35 @@ function Button(x, y, w, h, id) {
     newGame(8 + 2 * this.id);
   }
 }
+
+function soundButton() {
+  this.x = width / 30;
+  this.y = height / 10;
+  this.r = min(height, width) / 25;
+  if (! localStorage.sound || localStorage.sound == 'on'){
+    this.mode = 'on';
+  } else {
+    this.mode = 'off';
+  }
+  this.show = function() {
+
+    if (this.mode == 'on') {
+    image(soundOn, this.x - this.r, this.y - this.r,
+      this.r * 2, this.r * 2);
+  } else {
+    image(soundOff, this.x - this.r, this.y - this.r,
+      this.r * 2, this.r * 2);
+  }
+
+  }
+  this.change = function() {
+    if (this.mode == 'on') {
+      this.mode = 'off';
+      localStorage.sound = 'off';
+    } else {
+      this.mode = 'on';
+      localStorage.sound = 'on';
+    }
+
+  }
+}

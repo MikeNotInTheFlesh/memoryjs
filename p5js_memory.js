@@ -34,6 +34,9 @@ function setup() {
   textFont(myFont);
   cardBack = loadImage("data/cardBack.jpg");
   tableCloth = loadImage("data/tableCloth.jpg");
+  soundOn = loadImage("data/soundOn.gif");
+  soundOff = loadImage("data/soundOff.gif");
+  soundIcon = new soundButton();
   
   if (buttons != null){
     for (var i = 0; i < 4; i++){
@@ -51,7 +54,6 @@ function setup() {
     "IMG_1318.JPG",
     "IMG_1314.JPG",
     "IMG_1316.JPG",
-    "IMG_1315.JPG",
     "IMG_1312.JPG",
     "IMG_1310.JPG",
     "IMG_1307.JPG",
@@ -115,6 +117,8 @@ function draw() {
   for (let button of buttons) {
     button.show();
   }
+  
+  soundIcon.show();
   
 }
 
@@ -210,6 +214,14 @@ function mousePressed() {
       return;
     }
 	}
+	if (
+    soundIcon.x - soundIcon.r / 2 < mouseX
+    && mouseX < soundIcon.x + soundIcon.r / 2
+    && soundIcon.y - soundIcon.r / 2 < mouseY
+    && mouseY < soundIcon.y + soundIcon.r / 2
+  ) {
+    soundIcon.change();
+  }
 }
 
 function checkGuess(id){
@@ -239,7 +251,9 @@ function hideCards() {
 function correctGuess() {
   if (cards.length == 2) {
     winFlag = true;
-	levelComplete.play();
+	if (soundIcon.mode == 'on'){
+	  levelComplete.play();
+	}
     return;
   }
   for (let i = cards.length - 1; i >= 0; i--) {
@@ -247,7 +261,9 @@ function correctGuess() {
       cards.splice(i, 1);
     }
   }
-  correctPlay.play();
+  if (soundIcon.mode == 'on'){
+	correctPlay.play();
+  }
   firstGuessId = -1;
 }
 
